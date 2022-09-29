@@ -70,8 +70,17 @@ passport.use(
 	})
 );
 
-passport.serializeUser((user, done) => done(user, user.id));
-passport.deserializeUser((id, done) => {});
+passport.serializeUser((user, done) => {
+	interface extendedUserType extends Express.User {
+		id: string;
+	}
+
+	const extendedUser = user as extendedUserType;
+	done(user, extendedUser.id);
+});
+passport.deserializeUser((id: string, done) =>
+	User.findById(id, (err: Error, user: UserType) => done(err, user))
+);
 
 // adds passport into express
 app.use(

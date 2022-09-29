@@ -74,6 +74,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.38.0",
 		"@typescript-eslint/parser": "^5.38.0",
 		"concurrently": "^7.4.0",
+		"cty": "^1.0.3",
 		"eslint": "^8.23.1",
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-config-prettier": "^8.5.0",
