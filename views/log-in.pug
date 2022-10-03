@@ -1,0 +1,30 @@
+extends layout 
+
+block content 
+	if (!currentUser)
+		.log.container 
+			img(src="./images/door-mat.png", alt="placeholder image")
+			form(action="/log-in", method="post")
+				h2 The Log in form! 
+				p Haven't registered already? #[a(href="/sign-up") Sign up!]
+				div.input-container 
+					input#username(type="text", name="username", maxLength="25", value="", required)
+					label(for="username") 
+						.text Username...
+				div.input-container 
+					input#password(type="password", name="password", value="", required)
+					label(for="password") 
+						.text Password...
+				button(type="submit") Log in!
+	else
+		.log.bad-cred-cover.container
+			.bad-cred
+				h2 You are already logged in!
+				p You can #[a(href="/") visit the messaging board] in here!
+				a.submit(href="/log-out") Log-out
+	script.
+		document.querySelectorAll("input").forEach(e => {
+			e.addEventListener("keyup", () => {
+				e.setAttribute("value", e.value);
+			});
+		});

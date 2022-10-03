@@ -26,29 +26,6 @@ mongoose.connect(process.env.MONGO_URL!);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-// sets basic express settings
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-// view engine and statics primer
-app.use(express.static(path.join(__dirname, "../", "public")));
-app.set("views", path.join(__dirname, "../", "views"));
-app.set("view engine", "pug");
-
-// logger
-if (app.get("env") === "development") {
-	app.use(logger("dev"));
-}
-
-// security
-if (app.get("env") === "production") {
-	app.use(compression());
-	app.use(helmet());
-}
-
-// adds base routing
-app.use("/", indexRouter());
-
 // adds passport middleware
 passport.use(
 	new LocalStrategy((username, password, done) => {
@@ -99,6 +76,29 @@ app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	next();
 });
+
+// sets basic express settings
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// view engine and statics primer
+app.use(express.static(path.join(__dirname, "../", "public")));
+app.set("views", path.join(__dirname, "../", "views"));
+app.set("view engine", "pug");
+
+// logger
+if (app.get("env") === "development") {
+	app.use(logger("dev"));
+}
+
+// security
+if (app.get("env") === "production") {
+	app.use(compression());
+	app.use(helmet());
+}
+
+// adds base routing
+app.use("/", indexRouter());
 
 // catch 404 and fwd
 app.use((req, res, next) => {

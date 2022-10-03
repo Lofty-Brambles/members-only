@@ -1,0 +1,202 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+nav {
+	width: 100%;
+	padding: 1rem;
+	border-bottom: 0.25rem double #fff;
+
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+
+	background: linear-gradient(to bottom, #0f172a, #334155);
+	font-family: "Titan One", cursive;
+	color: #fff;
+}
+
+nav > img {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 9999;
+	transition: transform ease-in-out 0.7s;
+}
+
+nav > img:hover {
+	transform: scale(1.2) rotateX(360deg);
+}
+
+.container {
+	height: calc(100vh - 68px);
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.bad-cred-cover {
+	justify-content: center;
+}
+
+.sign,
+.log {
+	gap: 2rem;
+	background-color: rgb(228 228 231);
+	overflow-y: scroll;
+}
+
+.sign > img,
+.log > img {
+	margin-top: 3rem;
+	width: 50vw;
+	max-width: 250px;
+}
+
+.sign > form,
+.log > form {
+	position: relative;
+	min-width: 250px;
+	width: 70vw;
+	max-width: 350px;
+
+	padding: 2rem;
+	border: 2px rgb(163 163 163) solid;
+	border-radius: 0.25rem;
+	background-color: rgb(241 245 249);
+}
+
+.bad-cred {
+	width: calc(100% - 2rem);
+	margin: 3rem 1rem 1rem 1rem;
+	padding: 2rem;
+
+	border: 2px rgb(163 163 163) solid;
+	border-radius: 0.25rem;
+	background-color: rgb(241 245 249);
+}
+
+.sign h2,
+.log h2 {
+	font-family: "Titan One", cursive;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 0.75rem;
+}
+
+.sign p,
+.log p {
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 0.85rem;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 0.75rem;
+}
+
+.sign p.error,
+.log p.error {
+	width: 100%;
+	border-radius: 0.25rem;
+	border: 2px solid #f22;
+	padding: 0.5rem;
+	color: #f22;
+}
+
+.input-container {
+	position: relative;
+	width: 100%;
+}
+
+input {
+	width: 100%;
+	padding: 0.5rem 1.2rem;
+	margin-bottom: 1rem;
+	border: 1px solid rgb(163 163 163);
+	border-radius: 0.25rem;
+
+	background-color: rgb(241 245 249);
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 1rem;
+}
+
+input + label {
+	position: absolute;
+	top: 0;
+	left: 0.7rem;
+
+	display: flex;
+	padding: 9px 0;
+	align-items: center;
+	border: 3px solid inherit;
+	pointer-events: none;
+}
+
+input + label > .text {
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 1rem;
+	padding: 0 0.5rem;
+	transform: translate(0);
+	background-color: rgb(241 245 249);
+	transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out;
+}
+
+input:focus {
+	outline: none;
+	border-color: #22f;
+}
+
+input:focus + label .text,
+:not(input[value=""]) + label .text {
+	transform: translate(0, -100%);
+	font-size: 0.65rem;
+}
+
+button[type="submit"], .submit {
+	width: 100%;
+	padding: 0.75rem 0.5rem;
+	border: none;
+	border-radius: 0.25rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+
+	color: #fff;
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 1rem;
+	background-color: #0f172a;
+}
+
+button[type="submit"]:hover, .submit {
+	background-color: #114155;
+}
+
+.submit {
+	max-width: 100px;
+}
+
+@media (min-width: 850px) {
+	.sign,
+	.log {
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.bad-cred {
+		width: 70%;
+	}
+
+	.sign > img,
+	.log > img {
+		margin-top: 0;
+	}
+}
