@@ -1,0 +1,24 @@
+extends layout 
+
+block content 
+	.sign.container
+		img(src="./images/door-mat.png", alt="placeholder image")
+		form(action="/message", method="post")
+			h2 Write a message! 
+			if (error)
+				p.error= error
+			.input-container 
+				input#title(type="text", name="title", maxLength="50", value="", required)
+				label(for="title")
+					.text Title 
+			.input-container 
+				textarea#description(name="description", cols="30", rows="10", required)
+				label(for="description") 
+					.text Description...
+			button(type="submit") Send! 
+	script. 
+		document.querySelectorAll("input").forEach(e => {
+			e.addEventListener("keyup", () => {
+				e.setAttribute("value", e.value);
+			});
+		});

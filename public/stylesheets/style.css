@@ -24,14 +24,24 @@ nav {
 	color: #fff;
 }
 
-nav > img {
+nav > div {
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+nav img {
 	width: 2rem;
 	height: 2rem;
 	border-radius: 9999;
 	transition: transform ease-in-out 0.7s;
 }
 
-nav > img:hover {
+nav img:hover {
+	transform: scale(1.1);
+}
+
+nav img#github-link:hover {
 	transform: scale(1.2) rotateX(360deg);
 }
 
@@ -115,7 +125,8 @@ nav > img:hover {
 	width: 100%;
 }
 
-input {
+input,
+textarea {
 	width: 100%;
 	padding: 0.5rem 1.2rem;
 	margin-bottom: 1rem;
@@ -127,7 +138,8 @@ input {
 	font-size: 1rem;
 }
 
-input + label {
+input + label,
+textarea + label {
 	position: absolute;
 	top: 0;
 	left: 0.7rem;
@@ -139,7 +151,8 @@ input + label {
 	pointer-events: none;
 }
 
-input + label > .text {
+input + label > .text,
+textarea + label > .text {
 	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
 	font-size: 1rem;
 	padding: 0 0.5rem;
@@ -148,7 +161,8 @@ input + label > .text {
 	transition: transform 0.15s ease-in-out, font-size 0.15s ease-in-out;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
 	outline: none;
 	border-color: #22f;
 }
@@ -159,7 +173,8 @@ input:focus + label .text,
 	font-size: 0.65rem;
 }
 
-button[type="submit"], .submit {
+button[type="submit"],
+.submit {
 	width: 100%;
 	padding: 0.75rem 0.5rem;
 	border: none;
@@ -176,12 +191,15 @@ button[type="submit"], .submit {
 	background-color: #0f172a;
 }
 
-button[type="submit"]:hover, .submit {
+button[type="submit"]:hover,
+.submit:hover {
 	background-color: #114155;
 }
 
 .submit {
+	text-decoration: none;
 	max-width: 100px;
+	margin: 1.5rem auto 0 auto;
 }
 
 @media (min-width: 850px) {

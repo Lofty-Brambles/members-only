@@ -3,7 +3,7 @@ extends layout
 block content 
 	.sign.container 
 		img(src="./images/door-mat.png", alt="placeholder image")
-		if (user.member)
+		if (currentUser.member)
 			div 
 				h2 Congratz! You are a member!
 				p To go back, #[a click here!]

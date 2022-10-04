@@ -28,36 +28,34 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // adds passport middleware
 passport.use(
-	new LocalStrategy((username, password, done) => {
-		User.findOne({ username }, (err: Error, user: UserType) => {
+	new LocalStrategy(function (username, password, done) {
+		User.findOne({ username }).exec((err, user) => {
 			if (err) return done(err);
 			if (!user)
-				return done(null, false, {
-					message: "Incorrect Password entered.",
-				});
+				return done(null, false, { message: "Incorrect username" });
 			compare(password, user.password, (err, res) => {
 				if (err) return done(err);
 				if (res) return done(null, user);
 				else
-					return done(null, false, {
-						message: "Incorrect Password entered.",
-					});
+					return done(null, false, { message: "Incorrect password" });
 			});
 		});
 	})
 );
 
-passport.serializeUser((user, done) => {
+passport.serializeUser(function (user, done) {
 	interface extendedUserType extends Express.User {
-		id: string;
+		_id: string;
 	}
 
 	const extendedUser = user as extendedUserType;
-	done(user, extendedUser.id);
+	done(null, extendedUser._id);
 });
-passport.deserializeUser((id: string, done) =>
-	User.findById(id, (err: Error, user: UserType) => done(err, user))
-);
+passport.deserializeUser(function (_id: string, done) {
+	User.findById(_id, function (err: Error, user: UserType) {
+		done(err, user);
+	});
+});
 
 // adds passport into express
 app.use(
@@ -70,16 +68,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // adds user object access from anywhere
 app.use((req, res, next) => {
 	res.locals.currentUser = req.user;
 	next();
 });
-
-// sets basic express settings
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 // view engine and statics primer
 app.use(express.static(path.join(__dirname, "../", "public")));

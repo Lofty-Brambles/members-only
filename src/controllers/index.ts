@@ -27,8 +27,21 @@ const memberPage = (req: Request, res: Response, next: NextFunction) => {
 	if (!res.locals.currentUser) res.redirect("/log-in");
 	return res.render("member", {
 		title: "Members only! - Member Sign-up",
-		user: res.locals.currentUser,
 	});
 };
 
-export { index, signUp, login, logout, badCredentials, memberPage };
+const messageForm = (req: Request, res: Response) => {
+	// TODO: The get request reflects, but logs a header error
+	if (!res.locals.currentUser) res.redirect("/log-in");
+	res.render("message", { title: "Members only! - New Message" });
+};
+
+export {
+	index,
+	signUp,
+	login,
+	logout,
+	badCredentials,
+	memberPage,
+	messageForm,
+};
