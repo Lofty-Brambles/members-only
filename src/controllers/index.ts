@@ -1,7 +1,14 @@
+import { Message } from "@models/Message";
 import { NextFunction, Request, Response } from "express";
 
-const index = (req: Request, res: Response) => {
-	res.render("index", { title: "Members only!" });
+const index = async (req: Request, res: Response, next: NextFunction) => {
+	Message.find()
+		.sort({ time: "descending" })
+		.populate("user")
+		.exec((err, messages) => {
+			if (err) next(err);
+			res.render("index", { title: "Members only!", messages });
+		});
 };
 
 const signUp = (req: Request, res: Response) => {
@@ -23,10 +30,19 @@ const badCredentials = (req: Request, res: Response) => {
 	res.render("bad-credentials", { title: "Members only! - Oh no" });
 };
 
-const memberPage = (req: Request, res: Response, next: NextFunction) => {
+const memberPage = (req: Request, res: Response) => {
+	// TODO: The get request reflects, but logs a header error
 	if (!res.locals.currentUser) res.redirect("/log-in");
-	return res.render("member", {
+	res.render("member", {
 		title: "Members only! - Member Sign-up",
+	});
+};
+
+const adminPage = (req: Request, res: Response) => {
+	// TODO: The get request reflects, but logs a header error
+	if (!res.locals.currentUser) res.redirect("/log-in");
+	res.render("admin", {
+		title: "Members only! - Admin Sign-up",
 	});
 };
 
@@ -43,5 +59,6 @@ export {
 	logout,
 	badCredentials,
 	memberPage,
+	adminPage,
 	messageForm,
 };

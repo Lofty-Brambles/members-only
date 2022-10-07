@@ -1,6 +1,33 @@
 extends layout
 
 block content
-	header 
-		h1= "Express"
-		p= "Some boilerplate.. am I right?"
+	.index-body.container 
+
+		header 
+			if (!currentUser)
+				.notif 
+					img(src="/images/alert-circle.svg", alt="exclaim note")
+					p You must be logged in to view author name and date! 
+			else if (!currentUser.member)
+				.notif 
+					img(src="/images/alert-circle.svg", alt="exclaim note")
+					p You can enter the code "member_code" to get membership!
+
+		h3 Messages
+
+		each msg in messages 
+			section 
+				img(src=msg.user.avatar, alt="profile")
+				.wrapper 
+					.top
+						h3(class="title")= msg.title
+						p — #{msg.user.username}
+						if ((currentUser === undefined ? {} : currentUser).admin)
+							form(action="/", method="post") 
+								input(type="text", name="id", value=msg.id, required)
+								button(type="submit") #[img(src="/images/trash.svg", alt="delete button")] Delete
+					if (!currentUser || !(currentUser === undefined ? {} : currentUser).member)
+						p.desc #[a(href="/sign-up") Sign up] to see this message! 
+					else 
+						p= msg.description
+					p.time= msg.displayTime

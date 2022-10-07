@@ -5,12 +5,12 @@ block content
 		if (currentUser.member)
 			.log.bad-cred-cover.container
 				.bad-cred
-					h2 Congratz! You are a member!
+					h2 Congratz! You are a admin!
 					p To go back, #[a(href="/") click here!]
-		else
+		else 
 			img(src="./images/door-mat.png", alt="placeholder image")
-			form(action="/member", method="post") 
-				h2 Membership form!
+			form(action="/admin", method="post") 
+				h2 Admin form!
 				if (error)
 					p.error= error
 				div.input-container 

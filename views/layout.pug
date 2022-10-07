@@ -17,8 +17,11 @@ html(lang="en")
 			div
 				if (currentUser)
 					a(href="/message") #[img(src="./images/plus-circle.svg", alt="create message")]
-					img(src=currentUser.avatar, alt="profile picture")
-					a(href="/log-out") #[img(src="./images/log-out.svg", alt="log out")]
+					if (!currentUser.member)
+						a(href="/member") #[img(src="./images/layout.svg", alt="membership form")]
+					if (!currentUser.admin)
+						a(href="/admin") #[img(src="./images/lock.svg", alt="admin form")]
+					a(href="/log-out") #[img(src=currentUser.avatar, alt="profile picture")]
 				else 
 					a(href="/log-in") #[img(src="./images/log-in.svg", alt="log in")]
 					a(href="/sign-up") #[img(src="./images/edit-2.svg", alt="sign up")]

@@ -5,6 +5,13 @@ import { User } from "@models/User";
 import passport from "passport";
 import { Message } from "@models/Message";
 
+const handleIndex = (req: Request, res: Response, next: NextFunction) => {
+	Message.findByIdAndDelete(req.body.id, (err: Error) => {
+		if (err) return next(err);
+		res.redirect("/");
+	});
+};
+
 const handleSignUp: any = [
 	body("username").trim().isLength({ min: 6 }).escape(),
 	body("password")
@@ -76,14 +83,48 @@ const handleMemberForm = [
 
 		const readUser = new User(res.locals.currentUser);
 		readUser.member = true;
-		// TODO: Errors out while editing
-		await User.findOneAndUpdate(
+		User.findOneAndUpdate(
 			{ username: readUser.username },
 			readUser,
-			{},
+			{ new: true },
 			err => {
 				if (err) next(err);
-				return res.redirect("/member");
+				else res.redirect("/member");
+			}
+		);
+	},
+];
+
+const handleAdminForm = [
+	body("passcode")
+		.trim()
+		.isLength({ min: 1 })
+		.escape()
+		.withMessage("Passcode mustn't be empty."),
+	async (req: Request, res: Response, next: NextFunction) => {
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty())
+			return res.render("admin", {
+				title: "Members only! - Admin Sign-up",
+				error: "Passcode mustn't be empty",
+			});
+
+		if (req.body.passcode !== process.env.ADMIN_CODE)
+			return res.render("admin", {
+				title: "Members only! - Admin Sign-up",
+				error: "Incorrect Passcode provided.",
+			});
+
+		const readUser = new User(res.locals.currentUser);
+		readUser.admin = true;
+		User.findOneAndUpdate(
+			{ username: readUser.username },
+			readUser,
+			{ new: true },
+			err => {
+				if (err) next(err);
+				else res.redirect("/");
 			}
 		);
 	},
@@ -114,11 +155,18 @@ const handleMessageForm: any = [
 			time: new Date(),
 		});
 
-		await message.save(err => {
+		message.save(err => {
 			if (err) return next(err);
 			res.redirect("/");
 		});
 	},
 ];
 
-export { handleSignUp, handleLogIn, handleMemberForm, handleMessageForm };
+export {
+	handleIndex,
+	handleSignUp,
+	handleLogIn,
+	handleMemberForm,
+	handleAdminForm,
+	handleMessageForm,
+};

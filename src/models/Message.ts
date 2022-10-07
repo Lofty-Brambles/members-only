@@ -12,10 +12,9 @@ MessageSchema.virtual("displayTime").get(function () {
 	const y: number = this.time.getFullYear();
 	const m = add0(this.time.getMonth() + 1);
 	const d = add0(this.time.getDate());
-	const w = this.time.toDateString().substring(0, 3);
 	const h = add0(this.time.getHours());
 	const min = add0(this.time.getMinutes());
-	return `[${y}-${m}-${d} ${w} ${h}:${min}]`;
+	return `${y}-${m}-${d} | ${h}:${min} hours`;
 });
 
 export const Message = model("Message", MessageSchema);

@@ -7,8 +7,11 @@ import {
 	badCredentials,
 	logout,
 	messageForm,
+	adminPage,
 } from "@controllers/index";
 import {
+	handleAdminForm,
+	handleIndex,
 	handleLogIn,
 	handleMemberForm,
 	handleMessageForm,
@@ -19,6 +22,7 @@ const indexRouter = () => {
 	const router = express.Router();
 
 	router.get("/", index);
+	router.post("/", handleIndex);
 
 	router.get("/sign-up", signUp);
 	router.post("/sign-up", handleSignUp);
@@ -30,6 +34,9 @@ const indexRouter = () => {
 
 	router.get("/member", memberPage);
 	router.post("/member", handleMemberForm);
+
+	router.get("/admin", adminPage);
+	router.post("/admin", handleAdminForm);
 
 	router.get("/message", messageForm);
 	router.post("/message", handleMessageForm);

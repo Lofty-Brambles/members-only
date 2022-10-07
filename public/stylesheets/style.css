@@ -16,7 +16,8 @@ nav {
 	border-bottom: 0.25rem double #fff;
 
 	display: flex;
-	justify-content: space-between;
+	flex-wrap: wrap;
+	justify-content: space-around;
 	gap: 1rem;
 
 	background: linear-gradient(to bottom, #0f172a, #334155);
@@ -57,11 +58,15 @@ nav img#github-link:hover {
 	justify-content: center;
 }
 
+.index-body {
+	gap: 0.5rem;
+	background-color: rgb(228 228 231);
+}
+
 .sign,
 .log {
 	gap: 2rem;
 	background-color: rgb(228 228 231);
-	overflow-y: scroll;
 }
 
 .sign > img,
@@ -202,6 +207,154 @@ button[type="submit"]:hover,
 	margin: 1.5rem auto 0 auto;
 }
 
+header {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 1rem;
+}
+
+.notif {
+	position: relative;
+	width: fit-content;
+	padding: 0.75rem;
+	margin: 0 auto;
+
+	border: #22f solid 2px;
+	border-radius: 0.25rem;
+
+	display: flex;
+	gap: 1rem;
+	background-color: rgba(34, 34, 255, 0.1);
+	box-shadow: rgba(34, 34, 255, 0.24) 0px 3px 8px;
+}
+
+.notif::before {
+	position: absolute;
+	content: "";
+	box-sizing: border-box;
+	height: 1.5rem;
+	width: 0.3rem;
+
+	border-radius: 0 50% 50% 0;
+	background-color: #00f;
+	left: -1px;
+	top: calc(50% - 0.75rem);
+}
+
+.notif > p {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 1rem;
+	letter-spacing: 0.0225rem;
+}
+
+h3 {
+	position: relative;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		Liberation Mono, Courier New, monospace;
+}
+
+h3::before,
+h3::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	width: 100px;
+	height: 2px;
+	background-color: rgb(55 65 81);
+}
+
+h3::before {
+	right: calc(100px + 0.5rem);
+}
+
+h3::after {
+	left: calc(100px + 0.5rem);
+}
+
+section {
+	box-sizing: border-box;
+	margin: 0.5rem 0;
+	padding: 1.25rem;
+	width: 90%;
+
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	border-radius: 0.4rem;
+}
+
+section > img {
+	display: none;
+	width: 150px;
+	height: 150px;
+	border-radius: 0.25rem;
+}
+
+.wrapper {
+	width: 100%;
+}
+
+.wrapper > p.desc {
+	font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+	font-size: 0.8rem
+}
+
+.top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem;
+}
+
+.title {
+	font-size: 1rem;
+}
+
+.title + p {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		Liberation Mono, Courier New, monospace;
+	font-size: 0.9rem;
+}
+
+.title::before,
+.title::after {
+	display: none;
+}
+
+.top + p {
+	padding: 0.6rem;
+	margin: 0.6rem auto;
+	border-radius: 0.25rem;
+
+	min-height: 93px;
+	min-width: 85%;
+	border: #0f172a 1px solid;
+}
+
+.time {
+	text-align: right;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+		Liberation Mono, Courier New, monospace;
+	font-size: 0.9rem;
+}
+
+.top input {
+	display: none;
+}
+
+.top button {
+	width: fit-content;
+	height: 2rem;
+}
+
+.top button > img {
+	width: 1rem;
+}
+
 @media (min-width: 850px) {
 	.sign,
 	.log {
@@ -216,5 +369,9 @@ button[type="submit"]:hover,
 	.sign > img,
 	.log > img {
 		margin-top: 0;
+	}
+
+	section > img {
+		display: block;
 	}
 }
